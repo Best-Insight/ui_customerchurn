@@ -4,7 +4,8 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 import random
-from lda_model import lda_model
+from ui_customerchurn.lda_model import lda_model
+from wordcloud import WordCloud
 import plotly.express as px
 
 st.markdown("""# NLP: SENTIMENT ANALYSIS
@@ -52,8 +53,20 @@ chunks_size = st.number_input('Chunk Size', min_value=1, max_value=1000, value=1
 if st.button('Run LDA Model'):
     # print is visible in the server output, not in the page
     st.write('I was clicked 🎉')
-    trained_model = lda_model(bad_reviews)
+    lda = lda_model.model(bad_reviews)
     #cloud
+    cloud = WordCloud(
+        background_color='white',
+        max_words=30,
+        contour_color='steelblue',
+        prefer_horizontal=1.0)
+
+    topics = lda.show_topics(formatted=False)
+
+    for i, topic in enumerate(topics):
+        topic_words = dict(topic[1])
+        cloud.generate_from_frequencies(topic_words, max_font_size=300)
+        st.image(cloud.to_image(), caption=f'Topic #{i}', use_column_width=True)
     #sentences
     #pyldaviz
 
