@@ -4,7 +4,7 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 import random
-from ui_customerchurn.lda_model import lda_model
+from ui_customerchurn import lda_model
 from wordcloud import WordCloud
 import plotly.express as px
 
@@ -31,6 +31,7 @@ def run_nlp_model(data):
     st.write(data.head())
     return data
 
+
 if st.button('Analyse Data'):
     # print is visible in the server output, not in the page
     st.write('I was clicked 🎉')
@@ -46,13 +47,11 @@ st.markdown("""# LDA ANALYSIS""")
 n_topics = st.number_input('Number of Topics', min_value=1, max_value=50, value=5, step=1)
 chunks_size = st.number_input('Chunk Size', min_value=1, max_value=1000, value=100, step=50)
 
-
-
-
-
 if st.button('Run LDA Model'):
     # print is visible in the server output, not in the page
     st.write('I was clicked 🎉')
+    data = run_nlp_model(data)
+    bad_reviews = data[data['recommendation'] == 0]
     lda = lda_model.model(bad_reviews)
     #cloud
     cloud = WordCloud(
@@ -69,7 +68,6 @@ if st.button('Run LDA Model'):
         st.image(cloud.to_image(), caption=f'Topic #{i}', use_column_width=True)
     #sentences
     #pyldaviz
-
 
 st.markdown("""# AUTOENCODER REVIEWS VISUALISATION""")
 

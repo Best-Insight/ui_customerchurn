@@ -41,8 +41,8 @@ def sent_to_words(sentences):
 
 def data_words(text):
     data_clean = text['review_clean'].values.tolist() # change to review
-    data_words = list(sent_to_words(data_clean))
-    return data_words
+    data_words_list = list(sent_to_words(data_clean))
+    return data_words_list
 
 stop_words = stopwords.words('english')
 nlp = spacy.load("en_core_web_sm", disable=['parser', 'ner'])
@@ -82,13 +82,15 @@ def model_params(texts):
     return id2word, corpus
 
 def cleaner(df):
+    df = df.sample(n=500)
+
 
     df['review_clean'] = df['review'].apply(remove_punctuations).copy()
     df['review_clean'] = df['review_clean'].apply(lowercase)
     df['review_clean'] = df['review_clean'].apply(remove_num)
     df['review_clean'] = df['review_clean'].apply(unidecode)
-    data_words = data_words(df)
-    data_words_nostops = remove_stopwords(data_words)
+    data_words_list = data_words(df)
+    data_words_nostops = remove_stopwords(data_words_list)
     data_words_bigrams = make_bigrams(data_words_nostops)
     # Do lemmatization keeping only noun, adj
     data_lemmatized = lemmatization(data_words_bigrams,allowed_postags=['NOUN', 'ADJ'])
