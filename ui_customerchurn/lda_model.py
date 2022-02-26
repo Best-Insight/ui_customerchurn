@@ -9,7 +9,6 @@ import gensim
 from unidecode import unidecode
 from nltk.corpus import stopwords
 import matplotlib.pyplot as plt
-from wordcloud import WordCloud
 import matplotlib.colors as mcolors
 from gensim.utils import simple_preprocess
 import spacy
@@ -82,9 +81,7 @@ def model_params(texts):
     return id2word, corpus
 
 def cleaner(df):
-    df = df.sample(n=500)
-
-
+    df['review'] = df['review'].astype(str)
     df['review_clean'] = df['review'].apply(remove_punctuations).copy()
     df['review_clean'] = df['review_clean'].apply(lowercase)
     df['review_clean'] = df['review_clean'].apply(remove_num)
@@ -99,13 +96,13 @@ def cleaner(df):
     return id2word, corpus
 
 # Build LDA model
-def model(df,num_topics=5,chunksize=100):
+def model(df,num_topics,chunksize):
     id2word,corpus = cleaner(df)
-    lda_model = gensim.models.LdaMulticore(corpus=corpus,
+    lda_model = gensim.models.LdaModel(corpus=corpus,
                                            id2word=id2word,
-                                           num_topics=5,
+                                           num_topics=num_topics,
                                            random_state=100,
-                                           chunksize=100,
+                                           chunksize=chunksize,
                                            passes=10,
                                            per_word_topics=True)
-    return lda_model
+    return lda_model,corpus

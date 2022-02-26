@@ -13,6 +13,8 @@ spacy
 gensim
 unidecode
 matplotlib
+wordcloud
+plotly
 
 
 
