@@ -17,8 +17,14 @@ def word_cloud_creator(model):
 
     topics = model.show_topics(formatted=False)
 
-    fig, axes = plt.subplots(int(len(topics)/3+1),
-                                3,
+    if len(topics)%2 == 0:
+        col= 2
+        row = int(len(topics)/2)
+    else:
+        col = 3
+        row = int(len(topics)/3+1)
+
+    fig, axes = plt.subplots(row, col,
                                 sharex=True,
                                 sharey=True)
     for i, topic in enumerate(topics):
