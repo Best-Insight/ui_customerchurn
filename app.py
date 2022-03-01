@@ -7,10 +7,12 @@ import random
 from ui_customerchurn import lda_model
 from wordcloud import WordCloud
 import plotly.express as px
+import requests
+from unidecode import unidecode
+from io import StringIO
 
 st.markdown("""# NLP: SENTIMENT ANALYSIS
 ## Identifying Unhappy Customers to Minimize Churn and Increase Retention""")
-
 
 st.set_option('deprecation.showfileUploaderEncoding', False)
 
@@ -25,18 +27,30 @@ if uploaded_file is not None:
 st.markdown("""# NLP ANALYSIS""")
 
 
-def run_nlp_model(data):
-    prediction = [random.randint(0,1) for i in range(data.shape[0])]
+def run_nlp_model():
+    url = 'https://customerchurn1-7fcrmetemq-ew.a.run.app/predict_GCP'
+    files = {'file': (uploaded_file.name, StringIO(
+    uploaded_file.getvalue().decode("utf-8"))
+, 'multipart/form-data', {'Expires': '0'})}
+    response = requests.post(url, files=files)
+    prediction = response.json()['pred']
     data['recommendation'] = prediction
-    st.write(data.head())
-    return data
 
+
+tolerance = st.slider('Select tolerance', 0.00, 1.00, 0.50)
+
+@st.cache
+def get_bad_reviews():
+    run_nlp_model()
+    bad_reviews = data[data['recommendation'] < tolerance]
+    return bad_reviews
 
 if st.button('Analyse Data'):
     # print is visible in the server output, not in the page
     st.write('I was clicked 🎉')
-    data = run_nlp_model(data)
-    bad_reviews = data[data['recommendation'] == 0]
+    # data = run_nlp_model(data)
+    # bad_reviews = data[data['recommendation'] < tolerance]
+    bad_reviews = get_bad_reviews()
     st.write(bad_reviews.head())
 else:
     st.write('I was not clicked 😞')
@@ -50,8 +64,9 @@ chunks_size = st.number_input('Chunk Size', min_value=1, max_value=1000, value=1
 if st.button('Run LDA Model'):
     # print is visible in the server output, not in the page
     st.write('I was clicked 🎉')
-    data = run_nlp_model(data)
-    bad_reviews = data[data['recommendation'] == 0]
+    # data = run_nlp_model(data)
+    # bad_reviews = data[data['recommendation'] < tolerance]
+    bad_reviews = get_bad_reviews()
     lda = lda_model.model(bad_reviews)
     #cloud
     cloud = WordCloud(
@@ -96,8 +111,9 @@ def run_auto_encoder_model(bad_reviews, category, n_clusters):
 if st.button('Run Auto-encoder Visualisation Model'):
     # print is visible in the server output, not in the page
     st.write('I was clicked 🎉')
-    data = run_nlp_model(data)
-    bad_reviews = data[data['recommendation'] == 0]
+    # data = run_nlp_model(data)
+    # bad_reviews = data[data['recommendation'] < tolerance]
+    bad_reviews = get_bad_reviews()
     run_auto_encoder_model(bad_reviews, category, clusters)
 
 
