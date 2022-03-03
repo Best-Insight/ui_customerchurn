@@ -17,25 +17,6 @@ wordcloud
 plotly
 pyLDAvis
 
-
-
-# tests/linter
-black
-coverage
-flake8
-pytest
-yapf
-
-# API
-gcsfs
-google-cloud-storage
-mlflow
-s3fs
-
 # utilities
-six>=1.14
-joblib
 memoized-property
-termcolor
 streamlit
-en_core_web_sm-3.0.0-py3-none-any.whl
