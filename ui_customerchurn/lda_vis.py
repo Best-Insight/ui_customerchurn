@@ -49,7 +49,8 @@ def highlighted_sentence(sample, model, highlight_probability_minimum, num_topic
 
     for index, row in sample.iterrows():
         html_elements = []
-        for token in row['review'].split():
+        review_text = [dollar for dollar in row['review'].split() if dollar != '$'] #dropping dollar symbol as it breaks HTML as a special character
+        for token in review_text:
             if model.id2word.token2id.get(token) is None:
                 html_elements.append(
                     f'<span style="text-decoration:None;">{token}</span>'
