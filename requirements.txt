@@ -1,7 +1,6 @@
 # packaging
 pip>=9
 requests
-io
 
 # data science
 numpy
