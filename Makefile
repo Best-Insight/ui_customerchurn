@@ -53,3 +53,18 @@ pypi_test:
 
 pypi:
 	@twine upload dist/* -u $(PYPI_USERNAME)
+
+
+# Docker run commands ----------------------------------------------
+
+docker_build:
+	@docker build -t eu.gcr.io/le-wagon-cathal/ui-customerchurn1 .
+
+docker_run:
+	@docker run -e PORT=8000 -p 8000:8000 eu.gcr.io/le-wagon-cathal/ui-customerchurn1
+
+docker_push:
+	@docker push eu.gcr.io/le-wagon-cathal/ui-customerchurn1
+
+docker_deploy:
+	@gcloud run deploy --image eu.gcr.io/le-wagon-cathal/ui-customerchurn1 --platform managed --region europe-west1 --timeout=600

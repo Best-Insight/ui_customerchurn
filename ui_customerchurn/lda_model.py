@@ -3,22 +3,23 @@ from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
 import string
-import spacy
 import gensim
 from unidecode import unidecode
 from nltk.corpus import stopwords
 import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
 from gensim.utils import simple_preprocess
-import spacy
 import nltk
 from nltk.corpus import stopwords
 from gensim.models.phrases import Phrases, Phraser
 from collections import Counter
 from gensim.corpora import Dictionary
+import spacy
 
-print('Downloading Spacy')
-spacy.cli.download("en_core_web_sm")
+
+
+# print('Downloading Spacy')
+# spacy.cli.download("en_core_web_sm")
 print('End Downloading Spacy')
 nltk.download('stopwords')
 def remove_punctuations(text):
