@@ -4,7 +4,6 @@ from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
 import string
 import spacy
-import en_core_web_sm
 import gensim
 from unidecode import unidecode
 from nltk.corpus import stopwords
