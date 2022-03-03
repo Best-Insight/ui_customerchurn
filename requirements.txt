@@ -1,6 +1,5 @@
 # packaging
 pip>=9
-collections
 requests
 io
 
