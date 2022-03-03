@@ -32,6 +32,10 @@ st.markdown("""# NLP: SENTIMENT ANALYSIS
 st.set_option('deprecation.showfileUploaderEncoding', False)
 
 uploaded_file = st.file_uploader("Choose a csv file", type="csv")
+<<<<<<< HEAD
+=======
+print(type(uploaded_file))
+>>>>>>> 271d3de59938a4b686855a58be09d60400c03c53
 
 if uploaded_file is not None:
     data = pd.read_csv(uploaded_file)
@@ -49,9 +53,17 @@ def run_nlp_model():
     , 'multipart/form-data', {'Expires': '0'})}
     response = requests.post(url, files=files)
     prediction = response.json()['pred']
+<<<<<<< HEAD
     data['recommendation'] = prediction
 
 
+=======
+    print(prediction)
+    data['recommendation'] = prediction
+
+
+
+>>>>>>> 271d3de59938a4b686855a58be09d60400c03c53
 tolerance = st.slider('Select tolerance', 0.00, 1.00, 0.50)
 
 
@@ -64,10 +76,20 @@ def get_bad_reviews():
 
 if st.button('Analyse Data'):
     # print is visible in the server output, not in the page
+<<<<<<< HEAD
     bad_reviews = get_bad_reviews()
     st.write(bad_reviews.head())
 else:
     st.write('Please click me to process the data')
+=======
+    st.write('I was clicked 🎉')
+    # data = run_nlp_model(data)
+    # bad_reviews = data[data['recommendation'] < tolerance]
+    bad_reviews = get_bad_reviews()
+    st.write(bad_reviews.head())
+else:
+    st.write('I was not clicked 😞')
+>>>>>>> 271d3de59938a4b686855a58be09d60400c03c53
 
 #LDA Model
 st.markdown("""# LDA ANALYSIS""")
@@ -110,6 +132,26 @@ clusters = st.number_input('Select Number of Clusters', min_value=1, max_value=1
 
 category = st.radio('Select a category', ('Realestate', 'Online Courses', 'Bank', 'Insurance'))
 
+<<<<<<< HEAD
+=======
+# def run_auto_encoder_model(bad_reviews, category, n_clusters):
+#     prediction = [random.randint(0,n_clusters) for i in range(bad_reviews.shape[0])]
+#     bad_reviews['cluster'] = prediction
+#     bad_reviews['X'] = bad_reviews['cluster'].apply(lambda row: random.uniform(-1,1))
+#     bad_reviews['Y'] = bad_reviews['cluster'].apply(lambda row: random.uniform(-1,1))
+
+#     px_options = {'hover_data': ['review'], 'color':"cluster"}
+
+#     st.write(bad_reviews.head())
+
+
+#     fig = px.scatter(bad_reviews, x='X', y='Y', **px_options)
+
+
+#     st.plotly_chart(fig, use_container_width=True)
+
+
+>>>>>>> 271d3de59938a4b686855a58be09d60400c03c53
 def run_auto_encoder_model(bad_reviews, category, clusters):
     data_processed = open('processed_data.csv')
 
@@ -120,6 +162,10 @@ def run_auto_encoder_model(bad_reviews, category, clusters):
         })
     }
     response = requests.post(url, files=files)
+<<<<<<< HEAD
+=======
+    print(response)
+>>>>>>> 271d3de59938a4b686855a58be09d60400c03c53
     prediction_x = response.json()['cluster_x']['X']
     prediction_y = response.json()['cluster_y']['Y']
     bad_reviews['X'] = prediction_x
@@ -131,6 +177,10 @@ def run_auto_encoder_model(bad_reviews, category, clusters):
     kmeans = KMeans(n_clusters=clusters,
                     random_state=0).fit(xy_x_train)
     clusters_xy = kmeans.predict(xy_x_train)
+<<<<<<< HEAD
+=======
+    print(clusters_xy)
+>>>>>>> 271d3de59938a4b686855a58be09d60400c03c53
 
     bad_reviews['C'] = clusters_xy
 
@@ -154,5 +204,34 @@ def run_auto_encoder_model(bad_reviews, category, clusters):
 if st.button('Run Auto-encoder Visualisation Model'):
     # print is visible in the server output, not in the page
     st.write('I was clicked 🎉')
+<<<<<<< HEAD
     bad_reviews = get_bad_reviews()
     run_auto_encoder_model(bad_reviews, category, int(clusters))
+=======
+    # data = run_nlp_model(data)
+    # bad_reviews = data[data['recommendation'] < tolerance]
+    bad_reviews = get_bad_reviews()
+    run_auto_encoder_model(bad_reviews, category, int(clusters))
+
+
+# return bad or good [0,1,1,1,]
+
+# data['recommended'] = [0,1,1,1,]
+
+# bad_reviews = data[ data[recommended == 0]]
+
+
+# ENTER FEW PARAMS AND CLICK BUTTON TO SEND A REQUEST TO API FOR LDA
+
+# data_lda = [ word cloud, sentence, pyldavis]
+
+# WORD CLOCK_THREAD_CPUTIME_ID
+# seNTENCE
+# PYLDAVIS
+
+
+
+# AND AUTOENCODER
+# SELECT INDUSTRY: REALESTATE, BANK INSURANCE, ONLINE COURSES....
+# data_autoencoder = [X, Y]
+>>>>>>> 271d3de59938a4b686855a58be09d60400c03c53

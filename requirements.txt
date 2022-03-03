@@ -8,6 +8,15 @@ wheel>=0.29
 numpy
 pandas
 scikit-learn
+nltk
+spacy
+gensim
+unidecode
+matplotlib
+wordcloud
+plotly
+
+
 
 # tests/linter
 black
@@ -27,3 +36,5 @@ six>=1.14
 joblib
 memoized-property
 termcolor
+streamlit
+en_core_web_sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-2.2.0/en_core_web_sm-2.2.0.tar.gz
