@@ -66,6 +66,7 @@ if st.button('Analyse Data'):
     # print is visible in the server output, not in the page
     bad_reviews = get_bad_reviews()
     st.write(bad_reviews.head())
+    st.write(f"{bad_reviews.shape[0]} negative reviews were identified out of the {data.shape[0]} reviews uploaded.")
 else:
     st.write('Please click me to process the data')
 
