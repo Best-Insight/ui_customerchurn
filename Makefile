@@ -67,4 +67,4 @@ docker_push:
 	@docker push eu.gcr.io/le-wagon-cathal/ui-customerchurn1
 
 docker_deploy:
-	@gcloud run deploy --image eu.gcr.io/le-wagon-cathal/ui-customerchurn1 --platform managed --region europe-west1 --timeout=600
+	@gcloud run deploy --image eu.gcr.io/le-wagon-cathal/ui-customerchurn1 --platform managed --region europe-west1 --timeout=600 --memory=2Gi
