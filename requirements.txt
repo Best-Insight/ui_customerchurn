@@ -1,6 +1,5 @@
 # packaging
 pip>=9
-setuptools>=26
 collections
 requests
 io
