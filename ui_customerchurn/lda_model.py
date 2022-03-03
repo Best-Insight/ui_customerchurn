@@ -18,6 +18,8 @@ from gensim.models.phrases import Phrases, Phraser
 from collections import Counter
 from gensim.corpora import Dictionary
 
+spacy.cli.download("en_core_web_sm")
+
 nltk.download('stopwords')
 def remove_punctuations(text):
     punctuations = string.punctuation
