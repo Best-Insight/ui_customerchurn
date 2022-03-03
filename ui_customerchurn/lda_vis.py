@@ -3,7 +3,6 @@ import random
 import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
 import pyLDAvis.gensim_models
-import pickle
 import pyLDAvis
 import streamlit.components.v1 as components
 import streamlit as st
@@ -17,10 +16,17 @@ def word_cloud_creator(model):
 
     topics = model.show_topics(formatted=False)
 
-    fig, axes = plt.subplots(int(len(topics)/3+1),
-                                3,
-                                sharex=True,
-                                sharey=True)
+    if len(topics)%2 == 0:
+        col= 2
+        row = int(len(topics)/2)
+    else:
+        col = 2
+        row = int(len(topics)/3+2)
+
+    fig, axes = plt.subplots(row, col,
+                                    sharex=True,
+                                    sharey=True)
+
     for i, topic in enumerate(topics):
         topic_words = dict(topic[1])
         cloud.generate_from_frequencies(topic_words, max_font_size=50)
