@@ -5,10 +5,9 @@ COPY requirements.txt /requirements.txt
 
 RUN pip install -U pip
 RUN pip install -r requirements.txt
+RUN python -m spacy download en_core_web_sm
 
 COPY ui_customerchurn /ui_customerchurn
-COPY api /api
-COPY models/Financial_Services_model /models/Financial_Services_model
-COPY models/finance_encoder /models/finance_encoder
+COPY app.py /app.py
 
-CMD uvicorn api.fast:app --host 0.0.0.0 --port $PORT
+CMD streamlit run app.py --server.port $PORT
