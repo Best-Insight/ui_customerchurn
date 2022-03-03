@@ -108,7 +108,7 @@ st.markdown("""# AUTOENCODER REVIEWS VISUALISATION""")
 
 clusters = st.number_input('Select Number of Clusters', min_value=1, max_value=15, value=5, step=1)
 
-category = st.radio('Select a category', ('Realestate', 'Online Courses', 'Bank', 'Insurance'))
+category = st.radio('Select a category', ('Financial Services', 'Realestate', 'Online Courses', 'Bank', 'Insurance'))
 
 def run_auto_encoder_model(bad_reviews, category, clusters):
     data_processed = open('processed_data.csv')
