@@ -18,7 +18,7 @@ from gensim.models.phrases import Phrases, Phraser
 from collections import Counter
 from gensim.corpora import Dictionary
 
-
+nltk.download('stopwords')
 def remove_punctuations(text):
     punctuations = string.punctuation
     for punctuation in punctuations:
