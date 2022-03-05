@@ -80,7 +80,7 @@ chunkssize = st.number_input(label= 'Chunk Size',min_value=1, max_value=2000, va
 
 if st.button('Run LDA Model'): # add user input options
     # print is visible in the server output, not in the page
-    run_nlp_model()
+    # run_nlp_model()
     # bad_reviews = data[data['recommendation'] == 'Not Recommended']
     bad_reviews = get_bad_reviews()
     lda, corpus = lda_model.model(bad_reviews, num_topics, chunkssize)

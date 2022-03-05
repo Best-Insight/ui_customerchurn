@@ -33,9 +33,9 @@ def lowercase(text):
     return text
 
 def remove_num(text):
-    text = ''.join(word for word in text if not word.isdigit())
+    text =''.join(word for word in text if not word.isdigit())
     text = unidecode(text)
-    return text
+    return text 
 
 def sent_to_words(sentences):
     for sentence in sentences:
